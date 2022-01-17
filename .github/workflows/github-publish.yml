@@ -38,7 +38,7 @@ jobs:
 
       - uses: reggionick/s3-deploy@v3
         with:
-          folder: docs
+          folder: build
           bucket: ${{ secrets.S3_BUCKET }}
           bucket-region: eu-west-3
           delete-removed: true
