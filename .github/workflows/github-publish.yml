@@ -36,8 +36,7 @@ jobs:
 
     - run: bundle exec middleman build
 
-    - name: Deploy
-      uses: reggionick/s3-deploy@v3
+    - uses: reggionick/s3-deploy@v3
         with:
           folder: docs
           bucket: ${{ secrets.S3_BUCKET }}
