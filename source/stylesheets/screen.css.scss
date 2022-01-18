@@ -37,6 +37,16 @@ body {
   -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
+a {
+  color: $main-text;
+  text-decoration: none;
+}
+
+a:active,
+a:hover {
+  color: $nav-active-text;
+}
+
 li {
   list-style-type: square;
   margin-left: 5px;
@@ -158,11 +168,15 @@ li {
     transition-duration: 200ms;
   }
 
+  .toc-link {
+    border-bottom: transparent 1px solid;
+  }
+
   // This is the currently selected ToC entry
   .toc-link.active {
     background-color: $nav-active-bg;
     color: $nav-active-text;
-    font-weight: 700;
+    border-bottom: $nav-active-text 1px solid;
   }
 
   // this is parent links of the currently selected ToC entry
@@ -373,6 +387,10 @@ li {
     clear: both;
   }
 
+  a {
+    font-weight: 700;
+  }
+
   h1 {
     @extend %header-font;
     font-size: 25px;
@@ -450,13 +468,19 @@ li {
     }
 
     th {
-      padding: 5px 10px;
-      border-bottom: 1px solid #ccc;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       vertical-align: bottom;
     }
 
     td {
       padding: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    td:first-child {
+      text-align: right;
+      padding-right: 1rem;
     }
 
     tr:last-child {
@@ -469,6 +493,14 @@ li {
 
     tr:nth-child(even) > td {
       background-color: lighten($main-bg, 2.4%);
+    }
+
+    .arg-type {
+      display: block;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 0.75rem;
+      line-height: 1rem;
+      word-break: normal;
     }
   }
 

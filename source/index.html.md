@@ -8,6 +8,7 @@ toc_footers:
   - quantform © 2017 - 2022
 
 includes:
+  - cookbook
   - cli
   - reference
   - adapter
@@ -44,6 +45,18 @@ The second difference is that you express your strategy in a devlarative (reacti
 ## What this project is not
 
 The general purpose of quantform is to automate your long-term and short-term investments. It's not a high frequency trading solution, instead this project is focused to provide simple and useful tools with acceptable performance aspect.
+
+## Features
+
+Here is a list of general features:
+
+- Ability to execute strategies in paper mode, backtest mode and live mode.
+- Provide an access to user account and market data via streams.
+- Manage local store of orderbook, trades, balances and orders.
+- Dedicated command line tools with ability to execute user defined tasks.
+- Storage obligated to persist strategy state between multiple sessions.
+- Editor app designed for rendering measurements to debug and analyze strategy execution on the fly.
+- Standard library of basic technical analysis indicators.
 
 # Prerequisites
 

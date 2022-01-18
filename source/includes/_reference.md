@@ -4,17 +4,34 @@
 
 Session is a root object of quantform system. Provides an access to unified trading components.
 
-### `instruments()`
+| Parameters                                      |                                 |
+| ----------------------------------------------- | ------------------------------- |
+| `timestamp`<span class="arg-type">number</span> | last update time                |
+| `statement`<span class="arg-type">any</span>    | collection of statement records |
 
-Subscribes for collection of tradable [instruments](instrument.md).
+## get list of instruments
+
+<code>instruments(): Observable&lt;Instrument[]&gt;</code>
+
+> Print every instrument one by one:
 
 ```typescript
-session.instruments().pipe(tap((it) => console.log));
+session.instruments().pipe(tap((it) => it.forEach(console.log)));
 ```
 
-### `instrument(selector)`
+A method that pipes a collection of tradeable instruments. This method get updated in case of Adapter initialization.
 
-Subscribes for [instrument](instrument.md) specified by provided selector.
+### Returns
+
+Returns a observable collection of [Instrument](#instrument).
+
+## get instrument
+
+<code>instrument(selector: InstrumentSelector): Observable&lt;Instrument&gt;</code>
+
+A method that pipes a [instrument](#instrument) updates specified by selector. This method get updated when commission property was patched.
+
+> Track the rate of market maker fee for BTC-USDT on Binance:
 
 ```typescript
 session
@@ -22,7 +39,15 @@ session
   .pipe(tap((it) => console.log("maker fee: ", it.commission.makerRate)));
 ```
 
-### `trade(selector)`
+| Parameters                                                 |                                   |
+| ---------------------------------------------------------- | --------------------------------- |
+| `selector`<span class="arg-type">InstrumentSelector</span> | selector of instrument to specify |
+
+### Returns
+
+Returns a observable of [Instrument](#instrument).
+
+## get trade
 
 Subscribes for executed [trades](trade.md) on exchange.
 
@@ -131,13 +156,13 @@ session
 const order = Order.buyMarket(instrument, instrument.base.floor(0.123456789));
 ```
 
-| Member      | Description                 |
-| ----------- | --------------------------- |
-| `timestamp` | _last update time_          |
-| `name`      | _name of asset_             |
-| `exchange`  | _name of exchange_          |
-| `scale`     | _defines numeric precision_ |
-| `tickSize`  | _minimum price movement_    |
+| Properties                                      |                           |
+| ----------------------------------------------- | ------------------------- |
+| `timestamp`<span class="arg-type">number</span> | last update time          |
+| `name`<span class="arg-type">string</span>      | name of asset             |
+| `exchange`<span class="arg-type">string</span>  | name of exchange          |
+| `scale`<span class="arg-type">number</span>     | defines numeric precision |
+| `tickSize`<span class="arg-type">number</span>  | minimum price movement    |
 
 | Method          | Description                                   |
 | --------------- | --------------------------------------------- |
@@ -171,14 +196,14 @@ session
 session.instruments().pipe(filter((it) => it.quote.name == "usdt"));
 ```
 
-| Member      | Description                                                            |
-| ----------- | ---------------------------------------------------------------------- |
-| `timestamp` | _last update time_                                                     |
-| `base`      | _base_ [asset.md](asset.md "mention") _which you going to buy or sell_ |
-| `quote`     | _quoted_ [asset.md](asset.md "mention")                                |
-| `cross`     | _represents collateral_ [asset.md](asset.md "mention")                 |
-| `leverage`  | _current leverage, `null` for non-leveraged markets_                   |
-| `commision` | _specifies trading fee rules_                                          |
+| Properties                                           |                                                         |
+| ---------------------------------------------------- | ------------------------------------------------------- |
+| `timestamp`<span class="arg-type">number</span>      | last update time                                        |
+| `base`<span class="arg-type">[Asset](#asset)</span>  | base asset which you going to buy or sell               |
+| `quote`<span class="arg-type">[Asset](#asset)</span> | quoted asset                                            |
+| `cross`<span class="arg-type">[Asset](#asset)</span> | represents collateral asset                             |
+| `leverage`<span class="arg-type">number</span>       | current leverage, `undefined` for non-leveraged markets |
+| `commision`<span class="arg-type">Commission</span>  | specifies trading fee rules                             |
 
 | Method       | Description                |
 | ------------ | -------------------------- |
@@ -219,11 +244,12 @@ combineLatest([
 );
 ```
 
-| Member      | Description                   |
-| ----------- | ----------------------------- |
-| `timestamp` | _time when execution occured_ |
-| `rate`      | _execution price_             |
-| `quantity`  | _execution size_              |
+| Properties                                                          |                             |
+| ------------------------------------------------------------------- | --------------------------- |
+| `timestamp`<span class="arg-type">number</span>                     | time when execution ocurred |
+| `instrument`<span class="arg-type">[Instrument](#instrument)</span> | related instrument          |
+| `rate`<span class="arg-type">number</span>                          | execution price             |
+| `quantity`<span class="arg-type">number</span>                      | execution size              |
 
 # Orderbook
 
@@ -237,15 +263,15 @@ session
   .pipe(tap((it) => `current best buy offer: ${it.bestBidRate}`));
 ```
 
-| Member            | Description                                        |
-| ----------------- | -------------------------------------------------- |
-| `timestamp`       | _last update time_                                 |
-| `instrument`      | _related_ [instrument.md](instrument.md "mention") |
-| `bestAskRate`     | best sell price                                    |
-| `bestAskQuantity` | _best sell quantity_                               |
-| `bestBidRate`     | _best buy rate_                                    |
-| `bestBidQuantity` | _best buy quantity_                                |
-| `midRate`         | _middle price of bid and ask_                      |
+| Properties                                                          |                             |
+| ------------------------------------------------------------------- | --------------------------- |
+| `timestamp`<span class="arg-type">number</span>                     | last update time            |
+| `instrument`<span class="arg-type">[Instrument](#instrument)</span> | related instrument          |
+| `bestAskRate`<span class="arg-type">number</span>                   | best sell price             |
+| `bestAskQuantity`<span class="arg-type">number</span>               | quantity of best sell price |
+| `bestBidRate`<span class="arg-type">number</span>                   | best buy rate               |
+| `bestBidQuantity`<span class="arg-type">number</span>               | quantity of best buy price  |
+| `midRate`<span class="arg-type">number</span>                       | middle price of bid and ask |
 
 <aside class="warning">Right now you can access only L1 orderbook data.</aside>
 
