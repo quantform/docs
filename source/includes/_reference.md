@@ -163,6 +163,8 @@ Returns a observable of Candle.
 
 ## get order
 
+<code>order(selector: InstrumentSelector): Observable&lt;Order&gt;</code>
+
 A method that tracks an [Order](order.md) changes.
 
 > Print new state of order:

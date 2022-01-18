@@ -4,85 +4,99 @@ The quantform CLI is a command-line interface tool that you use to create, devel
 
 # Commands
 
-## `qf init`
+Here you can find a collection of build-in commands.
 
-Scaffolds a new project files in current directory.
+## initialize project
 
-```
+<code>qf init</code>
+
+```console
 $ qf init
 ```
 
-## `qf live`
+Scaffolds a new project files in current directory.
 
-Executes strategy in live trading mode.
+## run live trading
 
-| Argument       | Description          |
-| -------------- | -------------------- |
-| `-c, --config` | _qf config file_     |
-| `-w, --watch`  | _run in watch mode_  |
-| `-i, --id`     | _session identifier_ |
+<code>qf live</code>
 
-```
+```console
 $ qf live -w -i 202101012210
 ```
 
-## `qf paper`
+Executes strategy in live trading mode.
+
+| Arguments      |                    |
+| -------------- | ------------------ |
+| `-c, --config` | qf config file     |
+| `-w, --watch`  | run in watch mode  |
+| `-i, --id`     | session identifier |
+
+## run paper trading
+
+<code>qf paper</code>
+
+```console
+$ qf paper -w -i 202101012210
+```
 
 Executes strategy in paper e.g. simulation mode.
 
-| Argument       | Description          |
-| -------------- | -------------------- |
-| `-c, --config` | _qf config file_     |
-| `-w, --watch`  | _run in watch mode_  |
-| `-i, --id`     | _session identifier_ |
+| Arguments      |                    |
+| -------------- | ------------------ |
+| `-c, --config` | qf config file     |
+| `-w, --watch`  | run in watch mode  |
+| `-i, --id`     | session identifier |
 
-```
-qf paper -w -i 202101012210
-```
+## run backtest
 
-## `qf backtest`
+<code>qf backtest</code>
 
-Executes strategy in backtesting mode for specified period.
-
-| Argument       | Description                |
-| -------------- | -------------------------- |
-| `-c, --config` | _qf config file_           |
-| `-w, --watch`  | _run in watch mode_        |
-| `-f, --from`   | _date from in unix format_ |
-| `-t, --to`     | _date to in unix format_   |
-
-```
-qf backtest
+```console
+$ qf backtest
 ```
 
-## `qf feed`
+Executes strategy in backtest mode for specified period.
+
+| Arguments      |                          |
+| -------------- | ------------------------ |
+| `-c, --config` | qf config file           |
+| `-w, --watch`  | run in watch mode        |
+| `-f, --from`   | date from in unix format |
+| `-t, --to`     | date to in unix format   |
+
+## feed storage with data
+
+<code>qf feed</code>
+
+```console
+$ qf feed 'binance:btc-usdt'
+```
 
 Fetches instrument historical data to storage.
 
-|                |                                          |
-| -------------- | ---------------------------------------- |
-| `<instrument>` | _instrument to import in unified format_ |
-| `-c, --config` | _qf config file_                         |
-| `-f, --from`   | _date from in unix format_               |
-| `-t, --to`     | _date to in unix format_                 |
+| Arguments      |                                        |
+| -------------- | -------------------------------------- |
+| `<instrument>` | instrument to import in unified format |
+| `-c, --config` | qf config file                         |
+| `-f, --from`   | date from in unix format               |
+| `-t, --to`     | date to in unix format                 |
 
-```
-qf feed 'binance:btc-usdt'
-```
+## run user defined task
 
-## `qf task`
+<code>qf task</code>
+
+```console
+$ qf task list-balances
+```
 
 Executes user defined task.
 
-|                |                            |
-| -------------- | -------------------------- |
-| `<taskName>`   | _name of the task to run_  |
-| `-c, --config` | _qf config file_           |
-| `-w, --watch`  | _run in watch mode_        |
-| `-p, --print`  | _prints result to console_ |
-
-```
-qf task list-balances
-```
+| Arguments      |                          |
+| -------------- | ------------------------ |
+| `<taskName>`   | name of the task to run  |
+| `-c, --config` | qf config file           |
+| `-w, --watch`  | run in watch mode        |
+| `-p, --print`  | prints result to console |
 
 # User defined tasks
