@@ -29,7 +29,7 @@ Returns a observable collection of [Instrument](#instrument).
 
 <code>instrument(selector: InstrumentSelector): Observable&lt;Instrument&gt;</code>
 
-A method that pipes a [instrument](#instrument) updates specified by selector. This method get updated when commission property was patched.
+A method that pipes a [Instrument](#instrument) updates specified by selector. This method get updated when commission property was patched.
 
 > Track the rate of market maker fee for BTC-USDT on Binance:
 
@@ -49,7 +49,11 @@ Returns a observable of [Instrument](#instrument).
 
 ## get trade
 
-Subscribes for executed [trades](trade.md) on exchange.
+<code>trade(selector: InstrumentSelector): Observable&lt;Trade&gt;</code>
+
+A method that pipes [Trades](#trade) ocurred on market.
+
+> Print last executed trade on market:
 
 ```typescript
 session
@@ -57,9 +61,21 @@ session
   .pipe(tap((it) => console.log("last executed rate: ", it.rate)));
 ```
 
-### `orderbook(selector)`
+| Parameters                                                 |                                   |
+| ---------------------------------------------------------- | --------------------------------- |
+| `selector`<span class="arg-type">InstrumentSelector</span> | selector of instrument to specify |
 
-Subscribes for specified [orderbook](orderbook.md).
+### Returns
+
+Returns a observable of [Trade](#trade).
+
+## get orderbook
+
+<code>orderbook(selector: InstrumentSelector): Observable&lt;Orderbook&gt;</code>
+
+A method that pipes a snapshot of [Orderbook](#orderbook).
+
+> Calculate and print a current spread:
 
 ```typescript
 session
@@ -67,9 +83,21 @@ session
   .pipe(tap((it) => console.log("spread: ", it.bestAskRate - it.bestBidRate)));
 ```
 
-### `position(selector)`
+| Parameters                                                 |                                   |
+| ---------------------------------------------------------- | --------------------------------- |
+| `selector`<span class="arg-type">InstrumentSelector</span> | selector of instrument to specify |
 
-Subscribes for specified [position](position.md) in derivative market.
+### Returns
+
+Returns a observable of [Orderbook](#orderbook).
+
+## get position
+
+<code>position(selector: InstrumentSelector): Observable&lt;Position&gt;</code>
+
+A method that pipes a opened [Position](#position) on derivative market.
+
+> Print unrealized profit for last updated position:
 
 ```typescript
 session
@@ -79,9 +107,21 @@ session
   );
 ```
 
-### `balance(selector)`
+| Parameters                                                 |                                   |
+| ---------------------------------------------------------- | --------------------------------- |
+| `selector`<span class="arg-type">InstrumentSelector</span> | selector of instrument to specify |
 
-Subscribes for specified [balance](balance.md) changes.
+### Returns
+
+Returns a observable of [Position](#position).
+
+## get balance
+
+<code>balance(selector: AssetSelector): Observable&lt;Balance&gt;</code>
+
+A method that pipes [Balance](#balance) changes.
+
+> Print current free balance:
 
 ```typescript
 session
@@ -89,9 +129,21 @@ session
   .pipe(tap((it) => console.log("current available balance: ", it.free)));
 ```
 
-### `history(selector, timeframe, length)`
+| Parameters                                            |                              |
+| ----------------------------------------------------- | ---------------------------- |
+| `selector`<span class="arg-type">AssetSelector</span> | selector of asset to specify |
 
-Pipes a historical sequence of candles in specified timeframe.
+### Returns
+
+Returns a observable of [Balance](#balance).
+
+## get history
+
+<code>history(selector: InstrumentSelector, timeframe: number, length: number): Observable&lt;Candle&gt;</code>
+
+A method that pipes a historical sequence of candles in specified timeframe.
+
+> Download and print latest 21 candles in 15 min timeframe for BTC-USDT on Binance:
 
 ```typescript
 session
@@ -99,37 +151,75 @@ session
   .pipe(tap((it) => console.log(it.timestamp, it.close)));
 ```
 
-### `open(...orders)`
+| Parameters                                                 |                                                      |
+| ---------------------------------------------------------- | ---------------------------------------------------- |
+| `selector`<span class="arg-type">InstrumentSelector</span> | selector of instrument to specify                    |
+| `timeframe`<span class="arg-type">number</span>            | timeframe of candles (must be supported by exchange) |
+| `length`<span class="arg-type">number</span>               | number of candles back                               |
 
-Opens a sequence of new [orders](order.md).
+### Returns
+
+Returns a observable of Candle.
+
+## get order
+
+A method that tracks an [Order](order.md) changes.
+
+> Print new state of order:
+
+```typescript
+session
+  .order(instrumentOf("binance:btc-usdt"))
+  .pipe(tap((it) => console.log("order updated: ", it.state)));
+```
+
+| Parameters                                                 |                                   |
+| ---------------------------------------------------------- | --------------------------------- |
+| `selector`<span class="arg-type">InstrumentSelector</span> | selector of instrument to specify |
+
+### Returns
+
+Returns a observable of [Order](order.md).
+
+## open new order
+
+<code>open(...orders: Order[]): Promise&lt;void&gt;</code>
+
+A method that opens a new order [Order](#order).
+
+> Opens a new buy order of 0.1 BTC on BTC-USDT at Binance market:
 
 ```typescript
 session.open(Order.buyMarket(instrumentOf("binance:btc-usdt"), 0.1));
 ```
 
-### `cancel(order)`
+| Parameters                                               |                |
+| -------------------------------------------------------- | -------------- |
+| `...orders`<span class="arg-type">[Order](#order)</span> | orders to open |
 
-Cancels peending [order](order.md).
+### Returns
+
+Returns a promise.
+
+## cancel pending order
+
+<code>cancel(order: Order): Promise&lt;void&gt;</code>
+
+A method that cancels a pending order [Order](#order).
+
+> Opens a pending order:
 
 ```typescript
 session.cancel(order);
 ```
 
-### `order(selector)`
+| Parameters                                           |                 |
+| ---------------------------------------------------- | --------------- |
+| `order`<span class="arg-type">[Order](#order)</span> | order to cancel |
 
-Subscribes for [order](order.md) changes.
+### Returns
 
-```typescript
-session
-  .order(instrumentOf("binane:btc-usdt"))
-  .pipe(tap((it) => console.log("order updated: ", it.state)));
-```
-
-## Paper trading
-
-## Backtesting
-
-## Live trading
+Returns a promise.
 
 # Asset
 
