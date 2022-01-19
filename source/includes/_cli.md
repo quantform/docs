@@ -6,7 +6,9 @@ The quantform CLI is a command-line interface tool that you use to create, devel
 
 Here you can find a collection of build-in commands.
 
-## initialize project
+## initialize a project
+
+> Create project files in current empty directory:
 
 <code>qf init</code>
 
@@ -19,6 +21,8 @@ Scaffolds a new project files in current directory.
 ## run live trading
 
 <code>qf live</code>
+
+> Execute live session in watch mode with fixed session id:
 
 ```console
 $ qf live -w -i 202101012210
@@ -36,6 +40,8 @@ Executes strategy in live trading mode.
 
 <code>qf paper</code>
 
+> Execute paper session in watch mode with fixed session id:
+
 ```console
 $ qf paper -w -i 202101012210
 ```
@@ -52,8 +58,16 @@ Executes strategy in paper e.g. simulation mode.
 
 <code>qf backtest</code>
 
+> Execute backtest session:
+
 ```console
 $ qf backtest
+```
+
+> Execute backtest session for custom period:
+
+```console
+$ qf backtest -f '01-01-2021' -t '01-01-2022'
 ```
 
 Executes strategy in backtest mode for specified period.
@@ -65,12 +79,20 @@ Executes strategy in backtest mode for specified period.
 | `-f, --from`   | date from in unix format |
 | `-t, --to`     | date to in unix format   |
 
-## feed storage with data
+## feed storage with historical data
 
 <code>qf feed</code>
 
+> Download and save historical data of BTC-USDT on Binance:
+
 ```console
 $ qf feed 'binance:btc-usdt'
+```
+
+> Download and save historical data for custom period:
+
+```console
+$ qf feed 'binance:btc-usdt' -f '01-01-2021' -t '01-01-2022'
 ```
 
 Fetches instrument historical data to storage.
@@ -86,6 +108,8 @@ Fetches instrument historical data to storage.
 
 <code>qf task</code>
 
+> run user defined task named 'list-balances':
+
 ```console
 $ qf task list-balances
 ```
@@ -100,3 +124,5 @@ Executes user defined task.
 | `-p, --print`  | prints result to console |
 
 # User defined tasks
+
+TODO:

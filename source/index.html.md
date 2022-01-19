@@ -1,8 +1,5 @@
 ---
-title: API Reference
-
-language_tabs: # must be one of https://git.io/vQNgJ
-  - typescript
+title: quantform - documentation
 
 toc_footers:
   - quantform © 2017 - 2022
@@ -19,34 +16,22 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for quantform
 ---
 
 # Introduction
 
-> To authorize, use this code:
+The quantform is a framework designed to automate trading on traditional, crypto centralized/decentralized markets. The main goal of this project is to allow express your strategy in declarative/reactive way and provide a solution to trade at the same time across multiple exchanges and instruments.
 
-```typescript
-session
-  .instrument(instrumentOf("binance:btc-usdt"))
-  .pipe(tap((it) => console.log("maker fee: ", it.commission.makerRate)));
-```
+The framework is bases on Node.js with minimum dependencies to meet requirements. Before start you should know TypeScript and should be familiar with RxJS solution.
 
-> Make sure to replace `meowmeowmeow` with your API key.
-
-The quantform is a framework designed for exchanging assets (e.g. stocks, currencies, cryptocurrencies) between traditional, centralized and decentralized markets in automatic/computer way.
-The framework is based od Node.js with minimum dependecies to met requirements.
-
-Please consider, we are still in development process.
-
-In general the quantform is exchange neutral solution with means you can simply trade at the same time a cross multiple exchanges and instruments.
-The second difference is that you express your strategy in a devlarative (reactive) way. Here you can read more about reactive programing.
+Please notice, this project is still in development process.
 
 ## What this project is not
 
 The general purpose of quantform is to automate your long-term and short-term investments. It's not a high frequency trading solution, instead this project is focused to provide simple and useful tools with acceptable performance aspect.
 
-## Features
+## List of features
 
 Here is a list of general features:
 

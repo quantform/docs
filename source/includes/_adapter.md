@@ -1,5 +1,7 @@
 # <strong class="section-header">Adapter</strong>
 
+Represents a connectors to markets.
+
 # Binance
 
 > To install package, use following command:

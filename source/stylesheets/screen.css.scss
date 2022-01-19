@@ -77,6 +77,11 @@ li {
   background-color: $nav-bg;
   font-size: 14px;
 
+  .section-header {
+    margin-top: 15px;
+    display: block;
+  }
+
   // language selector for mobile devices
   .lang-selector {
     display: none;
@@ -399,7 +404,7 @@ li {
     margin-bottom: $h1-margin-bottom;
     margin-top: 2em;
     border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     background-color: #fdfdfd;
   }
 
@@ -713,9 +718,4 @@ li {
 
 .copy-clipboard:hover {
   opacity: 0.8;
-}
-
-.section-header {
-  margin-top: 15px;
-  display: block;
 }

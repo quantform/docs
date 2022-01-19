@@ -189,7 +189,7 @@ Returns a observable of [Order](order.md).
 
 A method that opens a new order [Order](#order).
 
-> Opens a new buy order of 0.1 BTC on BTC-USDT at Binance market:
+> Opens a new buy order 0.1 of BTC on BTC-USDT at Binance market:
 
 ```typescript
 session.open(Order.buyMarket(instrumentOf("binance:btc-usdt"), 0.1));
@@ -222,6 +222,45 @@ session.cancel(order);
 ### Returns
 
 Returns a promise.
+
+## save measurements
+
+<code>useMeasure&lt;T&gt;({ kind })</code>
+
+A method that can store and retrieve object between multiple same sessions. You can use editor to render and debug stored measurements.
+
+> Query an object from storage:
+
+```typescript
+const [order$] = session.useMeasure<Order>({ kind: "last-executed-order" });
+
+order$.pipe(tap((it) => console.log(it)));
+```
+
+> Save a new object to storage:
+
+```typescript
+const [order$, saveOrder] = session.useMeasure<Order>({
+  kind: "last-executed-order",
+});
+
+// save filled orders to storage
+session.order(instrumentOf("binance:btc-usdt")).pipe(
+  filter((it) => it.state == "FILLED"),
+  map((it) => saveOrder(it))
+);
+
+// print last filled order stored in storage
+order$.pipe(tap((it) => console.log(it)));
+```
+
+| Parameters                                           |                 |
+| ---------------------------------------------------- | --------------- |
+| `order`<span class="arg-type">[Order](#order)</span> | order to cancel |
+
+### Returns
+
+Returns a tuple of stored object and a function to save new objects.
 
 # Asset
 
@@ -288,18 +327,21 @@ session
 session.instruments().pipe(filter((it) => it.quote.name == "usdt"));
 ```
 
-| Properties                                           |                                                         |
-| ---------------------------------------------------- | ------------------------------------------------------- |
-| `timestamp`<span class="arg-type">number</span>      | last update time                                        |
-| `base`<span class="arg-type">[Asset](#asset)</span>  | base asset which you going to buy or sell               |
-| `quote`<span class="arg-type">[Asset](#asset)</span> | quoted asset                                            |
-| `cross`<span class="arg-type">[Asset](#asset)</span> | represents collateral asset                             |
-| `leverage`<span class="arg-type">number</span>       | current leverage, `undefined` for non-leveraged markets |
-| `commision`<span class="arg-type">Commission</span>  | specifies trading fee rules                             |
+| Properties                                                         |                                                         |
+| ------------------------------------------------------------------ | ------------------------------------------------------- |
+| `timestamp`<span class="arg-type">number</span>                    | last update time                                        |
+| `base`<span class="arg-type">[Asset](#asset)</span>                | base asset which you going to buy or sell               |
+| `quote`<span class="arg-type">[Asset](#asset)</span>               | quoted asset                                            |
+| `cross`<span class="arg-type">[Asset](#asset)</span>               | represents collateral asset                             |
+| `leverage`<span class="arg-type">number</span>                     | current leverage, `undefined` for non-leveraged markets |
+| `commision`<span class="arg-type">[Commission](#commission)</span> | specifies trading fee rules                             |
 
-| Method       | Description                |
-| ------------ | -------------------------- |
-| `toString()` | _returns unified selector_ |
+### Commission
+
+| Properties                                      |                |
+| ----------------------------------------------- | -------------- |
+| `makerRate`<span class="arg-type">number</span> | maker fee rate |
+| `takerRate`<span class="arg-type">number</span> | taker fee rate |
 
 # Trade
 
@@ -369,6 +411,92 @@ session
 
 # Balance
 
+Represents account balance.
+
+> Subscribe to balance changes:
+
+```typescript
+session
+  .balance(assetOf("binance:btc"))
+  .pipe(tap((it) => `current free balance of BTC: ${it.free}`));
+```
+
+| Properties                                                      |                                                       |
+| --------------------------------------------------------------- | ----------------------------------------------------- |
+| `timestamp`<span class="arg-type">number</span>                 | last update time                                      |
+| `asset`<span class="arg-type">[Asset](#asset)</span>            | related asset                                         |
+| `free`<span class="arg-type">number</span>                      | available quantity to trade                           |
+| `freezed`<span class="arg-type">number</span>                   | locked quantity in pending orders                     |
+| `total`<span class="arg-type">number</span>                     | the sum of free and freezed quantities                |
+| `position`<span class="arg-type">[Position[]](#position)</span> | collection of opened positions backed by this balance |
+
 # Order
 
+Represents an market or limit order on the market.
+
+| Properties                                                          |                                                    |
+| ------------------------------------------------------------------- | -------------------------------------------------- |
+| `id`<span class="arg-type">string</span>                            | order unique identifier                            |
+| `externalId`<span class="arg-type">string</span>                    | order id on specific market                        |
+| `timestamp`<span class="arg-type">number</span>                     | last update time                                   |
+| `instrument`<span class="arg-type">[Instrument](#instrument)</span> | related instrument                                 |
+| `side`<span class="arg-type">[OrderSide](#order-side)</span>        | order side                                         |
+| `type`<span class="arg-type">[OrderType](#order-type)</span>        | type of the order                                  |
+| `state`<span class="arg-type">[OrderState](#order-state)</span>     | current order state                                |
+| `quantity`<span class="arg-type">number</span>                      | quantity of the order                              |
+| `quantityExecuted`<span class="arg-type">number</span>              | executed quantity of the order (only limit orders) |
+| `rate`<span class="arg-type">number</span>                          | limit rate (only limit orders)                     |
+| `averageExecutionRate`<span class="arg-type">number</span>          | order execution rate                               |
+| `stopRate`<span class="arg-type">number</span>                      | stop rate (only stop loss orders)                  |
+| `createdAt`<span class="arg-type">number</span>                     | creation date                                      |
+
+### Order Side
+
+| Enumeration |             |
+| ----------- | ----------- |
+| `BUY`       | buyer side  |
+| `SELL`      | seller side |
+
+### Order Type
+
+Please notice, the supported order types depends on the type of the market you are going to trade.
+
+| Enumeration |                             |
+| ----------- | --------------------------- |
+| `MARKET`    | execute order immediately   |
+| `LIMIT`     | add liquidity to the market |
+
+### Order State
+
+The order flow depends on the type of the order.
+
+| Enumeration |                       |
+| ----------- | --------------------- |
+| `NEW`       | not sent to market    |
+| `PENDING`   | for limit rate orders |
+| `FILLED`    | execution completed   |
+| `CANCELING` | cancel in progress    |
+| `CANCELED`  | cancel completed      |
+| `REJECTED`  | invalid parameters    |
+
 # Position
+
+Represents a position opened on derivative market.
+
+> Subscribe to position changes:
+
+```typescript
+session
+  .position(instrumentOf("binance:btc-usdt"))
+  .pipe(tap((it) => `position changed: ${it.estimatedUnrealizedPnL}`));
+```
+
+| Properties                                                          |                            |
+| ------------------------------------------------------------------- | -------------------------- |
+| `id`<span class="arg-type">string</span>                            | position unique identifier |
+| `timestamp`<span class="arg-type">number</span>                     | last update time           |
+| `instrument`<span class="arg-type">[Instrument](#instrument)</span> | related instrument         |
+| `averageExecutionRate`<span class="arg-type">number</span>          | position entry rate        |
+| `size`<span class="arg-type">number</span>                          | size of the position       |
+| `leverage`<span class="arg-type">number</span>                      | leverage of position       |
+| `estimatedUnrealizedPnL`<span class="arg-type">number</span>        | current unrealized profit  |
