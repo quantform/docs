@@ -1,8 +1,20 @@
 # <strong class="section-header">Command line (CLI)</strong>
 
+> To install the CLI globally using the `yarn` package manager:
+
+```console
+$ yarn global add @quantform/cli
+```
+
 The quantform CLI is a command-line interface tool that you use to create, develop and run quantform strategies directly from command shell.
 
 # Commands
+
+> Use help command to list commands:
+
+```console
+$ qf -h
+```
 
 Here you can find a collection of build-in commands.
 

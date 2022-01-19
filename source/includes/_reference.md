@@ -1,5 +1,7 @@
 # <strong class="section-header">Reference</strong>
 
+Here you can find a classes that you are going to interact while developing a strategies.
+
 # Session
 
 Session is a root object of quantform system. Provides an access to unified trading components.
