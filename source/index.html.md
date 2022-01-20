@@ -42,3 +42,15 @@ Here is a list of general features:
 - Storage obligated to persist strategy state between multiple sessions.
 - Editor app designed for rendering measurements to debug and analyze strategy execution on the fly.
 - Standard library of basic technical analysis indicators.
+
+# Packages
+
+All packages are distributed on npmjs.com:
+
+<a href="https://www.npmjs.com/package/@quantform/cli"><img src="https://img.shields.io/npm/v/@quantform/cli.svg?logo=npm&logoColor=fff&label=@quantform/cli&color=03D1EB&style=flat-square" alt="quantform/cli on npm" /></a>
+<a href="https://www.npmjs.com/package/@quantform/core"><img src="https://img.shields.io/npm/v/@quantform/core.svg?logo=npm&logoColor=fff&label=@quantform/core&color=03D1EB&style=flat-square" alt="quantform/core on npm" /></a>
+<a href="https://www.npmjs.com/package/@quantform/sqlite"><img src="https://img.shields.io/npm/v/@quantform/sqlite.svg?logo=npm&logoColor=fff&label=@quantform/sqlite&color=03D1EB&style=flat-square" alt="quantform/sqlite on npm" /></a>
+<a href="https://www.npmjs.com/package/@quantform/binance"><img src="https://img.shields.io/npm/v/@quantform/binance.svg?logo=npm&logoColor=fff&label=@quantform/binance&color=03D1EB&style=flat-square" alt="quantform/binance on npm" /></a>
+<a href="https://www.npmjs.com/package/@quantform/binance-future"><img src="https://img.shields.io/npm/v/@quantform/binance-future.svg?logo=npm&logoColor=fff&label=@quantform/binance-future&color=03D1EB&style=flat-square" alt="quantform/binance-future on npm" /></a>
+<a href="https://www.npmjs.com/package/@quantform/editor"><img src="https://img.shields.io/npm/v/@quantform/editor.svg?logo=npm&logoColor=fff&label=@quantform/editor&color=03D1EB&style=flat-square" alt="quantform/editor on npm" /></a>
+<a href="https://www.npmjs.com/package/@quantform/editor-react-component"><img src="https://img.shields.io/npm/v/@quantform/editor-react-component.svg?logo=npm&logoColor=fff&label=@quantform/editor-react-component&color=03D1EB&style=flat-square" alt="quantform/editor-react-component on npm" /></a>

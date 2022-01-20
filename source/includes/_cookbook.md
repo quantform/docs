@@ -2,9 +2,9 @@
 
 Here you can find a collection of snippets how to work with quantform.
 
-# Setting up a new projects
+# Setup a development environment
 
-Read how to setup development environment. Before start please, visit and download node.js installer from official node [homepage](https://nodejs.org/en/download/).
+This section describes how to setup development a environment. Before start please, visit and download Node.js installer from official node [homepage](https://nodejs.org/en/download/).
 
 Use terminal to install quantform CLI globally:
 
