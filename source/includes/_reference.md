@@ -189,7 +189,7 @@ Returns a observable of [Order](#order).
 
 <code>orders(selector: InstrumentSelector, states?: OrderState[]): Observable&lt;Order[]&gt;</code>
 
-A method that tracks an collection of [Orders](#order) grouped by [Instrument](#instrument).
+A method that tracks an collection of [Orders](#order) filtered by [Order States](#order-state).
 
 > Print number of pending orders:
 
