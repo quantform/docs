@@ -210,7 +210,7 @@ Returns a observable of [Order](#order).
 
 ## open new order
 
-<code>open(...orders: Order[]): Promise&lt;void&gt;</code>
+<code>open(order: Order): Observable&lt;Order&gt;</code>
 
 A method that opens a new order [Order](#order).
 
@@ -220,9 +220,9 @@ A method that opens a new order [Order](#order).
 session.open(Order.buyMarket(instrumentOf("binance:btc-usdt"), 0.1));
 ```
 
-| Parameters                                               |                |
-| -------------------------------------------------------- | -------------- |
-| `...orders`<span class="arg-type">[Order](#order)</span> | orders to open |
+| Parameters                                          |               |
+| --------------------------------------------------- | ------------- |
+| order`<span class="arg-type">[Order](#order)</span> | order to open |
 
 ### Returns
 
@@ -230,7 +230,7 @@ Returns a promise.
 
 ## cancel pending order
 
-<code>cancel(order: Order): Promise&lt;void&gt;</code>
+<code>cancel(order: Order): Observable&lt;Order&gt;</code>
 
 A method that cancels a pending order [Order](#order).
 
