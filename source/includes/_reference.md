@@ -212,7 +212,7 @@ Returns a observable of [Order](#order).
 
 <code>open(order: Order): Observable&lt;Order&gt;</code>
 
-A method that opens a new order [Order](#order).
+A method that opens a new [Order](#order).
 
 > Opens a new buy order 0.1 of BTC on BTC-USDT at Binance market:
 
@@ -232,7 +232,7 @@ Returns a promise.
 
 <code>cancel(order: Order): Observable&lt;Order&gt;</code>
 
-A method that cancels a pending order [Order](#order).
+A method that cancels a pending [Order](#order).
 
 > Opens a pending order:
 
