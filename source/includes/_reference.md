@@ -167,7 +167,7 @@ Returns a observable of Candle.
 
 <code>order(selector: InstrumentSelector): Observable&lt;Order&gt;</code>
 
-A method that tracks an [Order](order.md) changes.
+A method that tracks an [Order](#order) changes.
 
 > Print new state of order:
 
@@ -183,7 +183,30 @@ session
 
 ### Returns
 
-Returns a observable of [Order](order.md).
+Returns a observable of [Order](#order).
+
+## get orders
+
+<code>orders(selector: InstrumentSelector, states?: OrderState[]): Observable&lt;Order[]&gt;</code>
+
+A method that tracks an collection of [Orders](#order) grouped by [Instrument](#instrument).
+
+> Print number of pending orders:
+
+```typescript
+session
+  .orders(instrumentOf("binance:btc-usdt", ["NEW", "PENDING"]))
+  .pipe(tap((it) => console.log("number of pending orders: ", it.length)));
+```
+
+| Parameters                                                        |                                   |
+| ----------------------------------------------------------------- | --------------------------------- |
+| `selector`<span class="arg-type">InstrumentSelector</span>        | selector of instrument to specify |
+| `state`<span class="arg-type">[OrderState[]](#order-state)</span> | states to include                 |
+
+### Returns
+
+Returns a observable of [Order](#order).
 
 ## open new order
 
