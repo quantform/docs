@@ -7,11 +7,11 @@ toc_footers:
 includes:
   - introduction
   - cookbook
-  - cli
   - reference
   - adapter
   - storage
   - editor
+  - cli
 
 code_clipboard: true
 

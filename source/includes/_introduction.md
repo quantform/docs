@@ -22,6 +22,17 @@ Here is a list of general features:
 
 The general purpose of quantform is to automate your long-term and short-term investments. It's not a high frequency trading solution, instead this project is focused to provide simple and useful tools with acceptable performance aspect.
 
+## Architecture
+
+The subdomain architecture of framework looks like this:
+
+<img src='http://localhost:4567/images/onion.svg' width='450'>
+
+- **Strategy layer** - contains a collection of declarative user trading rules.
+- **Session layer** - exposes a common unified trading interface.
+- **Adapter layer** - manages store of private user and public market data.
+- **Storage layer** - persisted storage of historical and metric data to visualize strategy execution.
+
 # Packages
 
 All packages are distributed on npmjs.com:
