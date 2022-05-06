@@ -1,10 +1,10 @@
 # <strong class="section-header">Reference</strong>
 
-Here you can find a classes that you are going to interact while developing a strategies.
+Here you can find a definition of a unified trading interface that you are going to interact with while developing strategies.
 
 # Session
 
-Session is a root object of quantform system. Provides an access to unified trading components.
+Session is a root object of quantform system. Provides an access to all unified trading components.
 
 | Parameters                                      |                                 |
 | ----------------------------------------------- | ------------------------------- |
@@ -187,7 +187,7 @@ Returns a observable of [Order](#order).
 
 ## get orders
 
-<code>orders(selector: InstrumentSelector, states?: OrderState[]): Observable&lt;Order[]&gt;</code>
+<code>orders(selector: InstrumentSelector): Observable&lt;Order[]&gt;</code>
 
 A method that tracks an collection of [Orders](#order) filtered by [Order States](#order-state).
 
@@ -195,18 +195,17 @@ A method that tracks an collection of [Orders](#order) filtered by [Order States
 
 ```typescript
 session
-  .orders(instrumentOf("binance:btc-usdt", ["NEW", "PENDING"]))
+  .orders(instrumentOf("binance:btc-usdt"))
   .pipe(tap((it) => console.log("number of pending orders: ", it.length)));
 ```
 
-| Parameters                                                        |                                   |
-| ----------------------------------------------------------------- | --------------------------------- |
-| `selector`<span class="arg-type">InstrumentSelector</span>        | selector of instrument to specify |
-| `state`<span class="arg-type">[OrderState[]](#order-state)</span> | states to include                 |
+| Parameters                                                 |                                   |
+| ---------------------------------------------------------- | --------------------------------- |
+| `selector`<span class="arg-type">InstrumentSelector</span> | selector of instrument to specify |
 
 ### Returns
 
-Returns a observable of [Order](#order).
+Returns am observable collection of [Order](#order).
 
 ## open new order
 
@@ -217,7 +216,7 @@ A method that opens a new [Order](#order).
 > Opens a new buy order 0.1 of BTC on BTC-USDT at Binance market:
 
 ```typescript
-session.open(Order.buyMarket(instrumentOf("binance:btc-usdt"), 0.1));
+session.open(Order.market(instrumentOf("binance:btc-usdt"), 0.1));
 ```
 
 | Parameters                                          |               |
@@ -309,7 +308,7 @@ session
 > Round an order quantity to exchange decimal places:
 
 ```typescript
-const order = Order.buyMarket(instrument, instrument.base.floor(0.123456789));
+const order = Order.market(instrument, instrument.base.floor(0.123456789));
 ```
 
 | Properties                                      |                           |
@@ -465,8 +464,6 @@ Represents an market or limit order on the market.
 | `externalId`<span class="arg-type">string</span>                    | order id on specific market                        |
 | `timestamp`<span class="arg-type">number</span>                     | last update time                                   |
 | `instrument`<span class="arg-type">[Instrument](#instrument)</span> | related instrument                                 |
-| `side`<span class="arg-type">[OrderSide](#order-side)</span>        | order side                                         |
-| `type`<span class="arg-type">[OrderType](#order-type)</span>        | type of the order                                  |
 | `state`<span class="arg-type">[OrderState](#order-state)</span>     | current order state                                |
 | `quantity`<span class="arg-type">number</span>                      | quantity of the order                              |
 | `quantityExecuted`<span class="arg-type">number</span>              | executed quantity of the order (only limit orders) |
@@ -474,13 +471,6 @@ Represents an market or limit order on the market.
 | `averageExecutionRate`<span class="arg-type">number</span>          | order execution rate                               |
 | `stopRate`<span class="arg-type">number</span>                      | stop rate (only stop loss orders)                  |
 | `createdAt`<span class="arg-type">number</span>                     | creation date                                      |
-
-### Order Side
-
-| Enumeration |             |
-| ----------- | ----------- |
-| `BUY`       | buyer side  |
-| `SELL`      | seller side |
 
 ### Order Type
 

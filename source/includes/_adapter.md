@@ -23,13 +23,13 @@ QF_BINANCE_APISECRET=your_api_secret
 
 ```typescript
 // and create a new instance with parameter less constructor.
-const adapter = new BinanceAdapter();
+const adapter = binance();
 ```
 
 > or configure adapter in code:
 
 ```typescript
-const adapter = new BinanceAdapter({
+const adapter = binance({
   key: "your_api_key",
   secret: "your_api_secret",
 });
@@ -63,13 +63,13 @@ QF_BINANCEFUTURE_APISECRET=your_api_secret
 
 ```typescript
 // and create a new instance with parameter less constructor.
-const adapter = new BinanceFutureAdapter();
+const adapter = binanceFuture();
 ```
 
 > or configure adapter in code:
 
 ```typescript
-const adapter = new BinanceFutureAdapter({
+const adapter = binanceFuture({
   key: "your_api_key",
   secret: "your_api_secret",
 });

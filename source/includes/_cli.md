@@ -2,10 +2,6 @@
 
 > To install the CLI globally using the `yarn` package manager:
 
-```console
-$ yarn global add @quantform/cli
-```
-
 The quantform CLI is a command-line interface tool that you use to create, develop and run quantform strategies directly from command shell.
 
 # Commands
@@ -13,40 +9,31 @@ The quantform CLI is a command-line interface tool that you use to create, devel
 > Use help command to list commands:
 
 ```console
-$ qf -h
+$ yarn run qf -h
 ```
 
 Here you can find a collection of build-in commands.
 
-## initialize a project
-
-> Create project files in current empty directory:
-
-<code>qf init</code>
-
-```console
-$ qf init
-```
-
-Scaffolds a new project files in current directory.
-
 ## run live trading
 
-<code>qf live</code>
+<code>qf run</code>
 
 > Execute live session in watch mode with fixed session id:
 
 ```console
-$ qf live -w -i 202101012210
+$ qf run ./strat -w -i 202101012210
 ```
 
 Executes strategy in live trading mode.
 
-| Arguments      |                    |
-| -------------- | ------------------ |
-| `-c, --config` | qf config file     |
-| `-w, --watch`  | run in watch mode  |
-| `-i, --id`     | session identifier |
+| Arguments |                    |
+| --------- | ------------------ |
+| `name`    | script file to run |
+
+| Options         |                    |
+| --------------- | ------------------ |
+| `-i, --id <id>` | session identifier |
+| `-w`            | run in watch mode  |
 
 ## run paper trading
 
@@ -55,86 +42,72 @@ Executes strategy in live trading mode.
 > Execute paper session in watch mode with fixed session id:
 
 ```console
-$ qf paper -w -i 202101012210
+$ qf dev ./strat -w -i 202101012210
 ```
 
 Executes strategy in paper e.g. simulation mode.
 
-| Arguments      |                    |
-| -------------- | ------------------ |
-| `-c, --config` | qf config file     |
-| `-w, --watch`  | run in watch mode  |
-| `-i, --id`     | session identifier |
+| Arguments |                    |
+| --------- | ------------------ |
+| `name`    | script file to run |
+
+| Options         |                    |
+| --------------- | ------------------ |
+| `-i, --id <id>` | session identifier |
+| `-w`            | run in watch mode  |
 
 ## run backtest
 
-<code>qf backtest</code>
+<code>qf test</code>
 
 > Execute backtest session:
 
 ```console
-$ qf backtest
+$ qf test ./strat
 ```
 
 > Execute backtest session for custom period:
 
 ```console
-$ qf backtest -f '01-01-2021' -t '01-01-2022'
+$ qf test ./strat -f '01-01-2021' -t '01-01-2022'
 ```
 
 Executes strategy in backtest mode for specified period.
 
-| Arguments      |                          |
-| -------------- | ------------------------ |
-| `-c, --config` | qf config file           |
-| `-w, --watch`  | run in watch mode        |
-| `-f, --from`   | date from in unix format |
-| `-t, --to`     | date to in unix format   |
+| Arguments |                    |
+| --------- | ------------------ |
+| `name`    | script file to run |
+
+| Options       |                          |
+| ------------- | ------------------------ |
+| `-f, --from`  | date from in unix format |
+| `-t, --to`    | date to in unix format   |
+| `-w, --watch` | run in watch mode        |
 
 ## feed storage with historical data
 
-<code>qf feed</code>
+<code>qf pull</code>
 
 > Download and save historical data of BTC-USDT on Binance:
 
 ```console
-$ qf feed 'binance:btc-usdt'
+$ qf pull ./strat 'binance:btc-usdt'
 ```
 
 > Download and save historical data for custom period:
 
 ```console
-$ qf feed 'binance:btc-usdt' -f '01-01-2021' -t '01-01-2022'
+$ qf pull ./strat 'binance:btc-usdt' -f '01-01-2021' -t '01-01-2022'
 ```
 
 Fetches instrument historical data to storage.
 
-| Arguments      |                                        |
-| -------------- | -------------------------------------- |
-| `<instrument>` | instrument to import in unified format |
-| `-c, --config` | qf config file                         |
-| `-f, --from`   | date from in unix format               |
-| `-t, --to`     | date to in unix format                 |
+| Arguments    |                      |
+| ------------ | -------------------- |
+| `name`       | script file to run   |
+| `instrument` | instrument to import |
 
-## run user defined task
-
-<code>qf task</code>
-
-> run user defined task named 'list-balances':
-
-```console
-$ qf task list-balances
-```
-
-Executes user defined task.
-
-| Arguments      |                          |
-| -------------- | ------------------------ |
-| `<taskName>`   | name of the task to run  |
-| `-c, --config` | qf config file           |
-| `-w, --watch`  | run in watch mode        |
-| `-p, --print`  | prints result to console |
-
-# User defined tasks
-
-TODO:
+| Options      |                          |
+| ------------ | ------------------------ |
+| `-f, --from` | date from in unix format |
+| `-t, --to`   | date to in unix format   |

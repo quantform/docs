@@ -4,14 +4,12 @@ Here you can find a collection of snippets how to work with quantform.
 
 # Setup a development environment
 
-This section describes how to setup a development environment. Before start please, visit and download Node.js installer from official node [homepage](https://nodejs.org/en/download/).
+This section describes how to set up a development environment. Before start please, visit and download Node.js installer from the official node [homepage](https://nodejs.org/en/download/).
 
-Use terminal to install quantform CLI globally:
+You should also have a <code>npx</code> installed.
 
-<code>$ yarn global add @quantform/cli</code>
+Use terminal to fetch and execute a command-line tool dedicated to scaffold project files:
 
-Create new folder and initialize project files:
-
-<code>qf init</code>
+<code>$ npx create-quantform-app my-app</code>
 
 Right now, you should have a working project to start research and developer new strategies.

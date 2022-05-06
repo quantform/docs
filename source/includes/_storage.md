@@ -10,13 +10,12 @@ Provides persisted storage for session feed and measurement data.
 $ yarn add @quantform/sqlite
 ```
 
-> Register providers in `qf.config.ts` file:
+> Register storage in session descriptor:
 
 ```typescript
-run({
-  feed: SQLiteFeed(),
-  measurement: SQLiteMeasurement(),
-});
+export const descriptor = {
+  storage: sqliteStorage(),
+};
 ```
 
 Manages session and measurement data in local quantform working environment.
